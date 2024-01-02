@@ -4,7 +4,7 @@ Visual Voyage Advisor is a machine learning project designed to assist users in 
 
 
 
-https://github.com/Sreenidhi-1/Tourist-Place-Recommendation-based-on-Image-Provided/assets/91629420/7c60a7ee-b316-4c70-ab2e-cdcd0caf8490
+![www_screencapture_com_2024-1-3_00_21](https://github.com/Sreenidhi-1/Tourist-Place-Recommendation-based-on-Image-Provided/assets/91629420/e3d56206-e047-4146-8bcf-9250c7cadd89)
 
 
 ### Dataset
