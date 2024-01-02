@@ -12,23 +12,22 @@ from sklearn.neighbors import NearestNeighbors
 import requests
 from io import BytesIO
 
+
 page_bg_img = f"""
     <style>
     [data-testid="stAppViewContainer"] > .main {{
-        background: linear-gradient(45deg, #FFD700, #FF69B4, #87CEEB, #FFD700, #98FB98, #FFA07A, #ADD8E6, #00FF00, #FF6347, #8A2BE2);
+        
 
         background-size: 200% 200%;
         animation: radialGradientAnimation 10s infinite linear;
     }}
     [data-testid="stSidebar"] {{
-        background: radial-gradient(circle, #87CEEB, #FF69B4); /* Radial gradient for sidebar */
+        
         background-size: cover;
         background-position: top left;
         background-attachment: local;
     }}
-    [data-testid="stHeader"] {{
-        background: rgba(255, 255, 255, 0.7);
-    }}
+
     [data-testid="stToolbar"] {{
         right: 2rem;
     }}
@@ -59,8 +58,11 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 
-from transformers import pipeline
-pipe = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
+model_name = "local_model"
+processor = BlipProcessor.from_pretrained(model_name)
+model = BlipForConditionalGeneration.from_pretrained(model_name)
+
+
 word2vec_model = Word2Vec.load(r"Word2vecTourism.model")
 spot_names_saved = pd.read_csv(r"spot_names.csv", header=None, index_col=False)
 spot_names_saved = spot_names_saved.iloc[:, 0]
@@ -156,22 +158,24 @@ df_link = pd.read_excel(r"links.xlsx", header=None)
 # Function to display images with a slider
 def display_images_with_slider(recommended_places, images):
     gradient_style = (
-        "background: linear-gradient(to right, #b4e5ff, #ffd3b6); "
+        
         "padding: 20px; border-radius: 10px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);"
-        "height:600px;"
+        "height:400px;"
         "width:800px;"
         "transition: all 0.3s ease;"
     )
-    st.title(recommended_places)
+    st.write(f"<h3 style='text-align: left; color:#0A0A0A. ;'>{recommended_places}</h3>", unsafe_allow_html=True)
+
+    #st.title(recommended_places)
     image_html = ''
     for url in range(len(images)):
-        image_html += f'<a href={images[url]} target="_blank"><img src="{images[url]}" style="width:500px; height:500px; object-fit: cover; display: block;margin-right: 40px; border-radius: 10px;"></a>'
+        image_html += f'<a href={images[url]} target="_blank"><img src="{images[url]}" style="width:300px; height:300px; object-fit: cover; display: block; border-radius: 10px;"></a>'
 
     st.markdown(
-        f"""<div style="{gradient_style}"><div style="display: flex; overflow-x: scroll; padding: 10px 0;width:750px; height:750px; ">{image_html}</div></div>""",
+        f"""<div style="{gradient_style}"><div style="display: flex; overflow-x: scroll; padding: 10px 0; gap: 10px;">{image_html}</div></div>""",
         unsafe_allow_html=True
     )
-    st.markdown("<br><hr>", unsafe_allow_html=True)
+    
 def display_image(recommend_places, input_caption):
     image_links = []
     r = []
@@ -224,7 +228,9 @@ def recommend_tourist_spots(input_caption, word2vec_model, spot_caption_vectors,
     return recommendations
 
 # Streamlit UI
-st.title("Image Captioning and Tourist Spot Recommendations")
+
+st.write("<h1 style='text-align: center;color:  #FFA500;'>Image Captioning and Tourist Spot Recommendations</h1><br><br>", unsafe_allow_html=True)
+
 tabs = st.tabs(["Upload Images and Predict", "Input Caption and Predict"])
 
 with tabs[0]:
@@ -234,13 +240,17 @@ with tabs[0]:
         try:
             for uploaded_file in uploaded_files:
                 image = Image.open(uploaded_file).resize((150, 150))
-                caption = pipe(image)[0]['generated_text']
+                inputs = processor(image, return_tensors="pt")
+                outputs = model.generate(**inputs)
+                caption = processor.decode(outputs[0], skip_special_tokens=True)
                 st.image(image, caption=caption, use_column_width=True)
                 st.markdown(f"<div style='color: #008080;'>Generated Caption: {caption}</div>", unsafe_allow_html=True)
                 recommendations = recommend_tourist_spots(caption, word2vec_model, spot_caption_vectors_saved, spot_names_saved)
-                st.subheader("Top recommended tourist spots:")
+                st.write("<h4 style='text-align: left;color:  #FFA500;'>Top recommended tourist spots:</h4>", unsafe_allow_html=True)
+
                 for spot, similarity in recommendations:
-                    st.markdown(f"<div style='color: pink;font-size:30px;'>- {spot}<span style='color: #008080;'> (Similarity: {similarity:.2f}<span>)</div>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='color: white;font-size:18px;'>- {spot}<span style='color: #008080;'> (Similarity: {similarity:.2f}<span>)</div>", unsafe_allow_html=True)
+                st.markdown("<br>", unsafe_allow_html=True)
                 recommended_places = [spot_name for spot_name, _ in recommendations]
                 display_image(recommended_places, caption)
                 
@@ -251,8 +261,9 @@ with tabs[1]:
     input_caption = st.text_input("Enter a caption:")
     if st.button("Generate Recommendations"):
         recommendations = recommend_tourist_spots(input_caption, word2vec_model, spot_caption_vectors_saved, spot_names_saved)
-        st.subheader("Top recommended tourist spots:")
+        st.write("<h4 style='text-align: left;color:  #FFA500;'>Top recommended tourist spots:</h4>", unsafe_allow_html=True)
         for spot, similarity in recommendations:
-            st.markdown(f"<div style='color: pink;font-size:30px;'>- {spot}<span style='color: #008080;'> (Similarity: {similarity:.2f}<span>)</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='color: white;font-size:18px;'>- {spot}<span style='color: #008080;'> (Similarity: {similarity:.2f}<span>)</div>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
         recommended_places = [spot_name for spot_name, _ in recommendations]
         display_image(recommended_places, input_caption)
