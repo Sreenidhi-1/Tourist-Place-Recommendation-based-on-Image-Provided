@@ -4,7 +4,7 @@ Visual Voyage Advisor is a machine learning project designed to assist users in 
 
 ### Dataset
 
-The dataset used in Visual Voyage Advisor has been sourced from TripAdvisor, a renowned platform for travel-related information and recommendations (TripAdvisor). This collection of data focuses specifically on tourist spots within the United States, providing valuable insights into various destinations across the country.
+The dataset used in Visual Voyage Advisor has been sourced from TripAdvisor, a renowned platform for travel-related information and recommendations (https://www.tripadvisor.in/). This collection of data focuses specifically on tourist spots within the United States, providing valuable insights into various destinations across the country.
 
 ### Features
 
