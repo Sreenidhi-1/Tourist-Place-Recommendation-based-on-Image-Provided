@@ -16,4 +16,4 @@ The dataset used in Visual Voyage Advisor has been sourced from TripAdvisor, a r
 - Textual feature extraction with Word2Vec model
 - KNN-based recommendation system for tourist spots
 
-![Project Demo](Demo.gif)
+
