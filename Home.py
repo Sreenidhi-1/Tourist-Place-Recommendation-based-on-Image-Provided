@@ -2,19 +2,17 @@ import streamlit as st
 page_bg_img = f"""
     <style>
     [data-testid="stAppViewContainer"] > .main {{
-        background: linear-gradient(45deg, #FFD700, #FF69B4, #87CEEB, #FFD700, #98FB98, #FFA07A, #ADD8E6, #00FF00, #FF6347, #8A2BE2);
+        
         background-size: 500% 500%;
         animation: gradientAnimation 10s infinite linear;
     }}
     [data-testid="stSidebar"] {{
-        background: radial-gradient(circle, #87CEEB, #FF69B4); /* Radial gradient for sidebar */
+        
         background-size: cover;
         background-position: top left;
         background-attachment: local;
     }}
-    [data-testid="stHeader"] {{
-        background: rgba(255, 255, 255, 0.7);
-    }}
+
     [data-testid="stToolbar"] {{
         right: 2rem;
     }}
@@ -42,15 +40,15 @@ st.markdown(
             text-align: center;
         }
         .reportview-container {
-            background: linear-gradient(to right, #FFD700, #87CEEB, #FFD700);
+            
             color: #2E4053;
         }
         .sidebar .sidebar-content {
-            background: linear-gradient(to right, #FFD700, #87CEEB, #FFD700);
+            
             color: #2E4053;
         }
         .dataframe {
-            background: linear-gradient(to right, #FFD700, #87CEEB, #FFD700);
+            
             color: #2E4053;
             font-size: 14px; /* Adjusted font size */
         }
@@ -61,7 +59,7 @@ st.markdown(
             color: #FF4500;
         }
 .custom-container {
-    background: linear-gradient(to right, #FFD700, #87CEEB, #FFD700); /* Gradient background */
+    
     padding: 10px; /* Adjusted padding */
     border-radius: 10px;
     margin-top: 10px; /* Adjusted margin top */
@@ -70,7 +68,7 @@ st.markdown(
 }
 
 .description-container {
-    background: linear-gradient(to right, #FFD700, #87CEEB, #FFD700); /* Gradient background */
+    
     padding: 10px;
     border-radius: 10px;
     margin-top: 10px;
@@ -79,8 +77,8 @@ st.markdown(
 }
 
         p {
-            font-size: 18px; /* Adjusted font size */
-            color: #2E4053;
+            font-size: 15px; /* Adjusted font size */
+            color: "white";
         }
         h1 {
             color: #FFA500;
