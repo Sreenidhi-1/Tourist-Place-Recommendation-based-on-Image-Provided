@@ -19,7 +19,7 @@ The dataset used in Visual Voyage Advisor has been sourced from TripAdvisor, a r
 
 
 
-![Project Demo](Demo.gif)
+![Project Demo](ResizeDemo.gif)
 
 
 
