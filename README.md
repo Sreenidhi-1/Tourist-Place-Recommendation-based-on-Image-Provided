@@ -18,4 +18,5 @@ The dataset used in Visual Voyage Advisor has been sourced from TripAdvisor, a r
 - KNN-based recommendation system for tourist spots
 
 
-![Project Demo](Demo.gif){:width="800px" height="450px"}
+
+![Project Demo](Demo.gif)
